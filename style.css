@@ -124,3 +124,17 @@ nav a:hover {
   cursor: pointer;
   color: #ccc;
 }
+
+#robot-icon {
+  position: fixed;
+  bottom: 60px;
+  right: 60px;
+  width: 120px;
+  z-index: 999;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+#robot-icon:hover {
+  transform: scale(1.1) rotate(5deg);
+}
