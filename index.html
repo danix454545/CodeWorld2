@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CodeWorld</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🎮 CodeWorld</h1>
+    <nav>
+      <a href="https://scratch.mit.edu/" target="_blank">Scratch</a>
+      <a href="https://itch.io/" target="_blank">Itch.io</a>
+      <a href="https://arcade.construct.net/" target="_blank">Construct Arcade</a>
+      <a href="https://flowlab.io/" target="_blank">Flowlab</a>
+      <a href="https://developer.crazygames.com/" target="_blank">CrazyGames</a>
+    </nav>
+    <button id="uploadBtn">Subir Juego</button>
+  </header>
+
+  <section id="gallery"></section>
+
+  <!-- Modal para subir juego -->
+  <div id="uploadModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Subir Nuevo Juego</h2>
+      <input type="text" id="gameTitle" placeholder="Nombre del Juego">
+      <input type="text" id="gameURL" placeholder="URL del juego (https://...)">
+      <p style="margin-top:15px;">URL de la portada (opcional):</p>
+      <input type="text" id="gameImgURL" placeholder="URL de imagen">
+      <p style="margin-top:10px;">O subir imagen desde tu equipo:</p>
+      <input type="file" id="gameImgFile" accept="image/*">
+      <button id="saveGame">Guardar</button>
+    </div>
+  </div>
+
+  <script>
+    const uploadBtn = document.getElementById('uploadBtn');
+    const uploadModal = document.getElementById('uploadModal');
+    const saveGame = document.getElementById('saveGame');
+    const gallery = document.getElementById('gallery');
+    const gameTitle = document.getElementById('gameTitle');
+    const gameURL = document.getElementById('gameURL');
+    const gameImgURL = document.getElementById('gameImgURL');
+    const gameImgFile = document.getElementById('gameImgFile');
+
+    uploadBtn.onclick = () => uploadModal.style.display = 'block';
+    uploadModal.querySelector('.close').onclick = () => uploadModal.style.display = 'none';
+
+    saveGame.onclick = () => {
+      const title = gameTitle.value;
+      const url = gameURL.value;
+      const imgUrl = gameImgURL.value;
+      const imgFile = gameImgFile.files[0];
+      let imgSrc = '';
+
+      if (!title || !url) {
+        alert('Completa al menos nombre y URL del juego.');
+        return;
+      }
+
+      if (imgFile) {
+        imgSrc = URL.createObjectURL(imgFile);
+      } else if (imgUrl) {
+        imgSrc = imgUrl;
+      } else {
+        imgSrc = 'https://via.placeholder.com/300x160/333333/FFFFFF?text=Sin+Portada';
+      }
+
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <img src="${imgSrc}" alt="${title}">
+        <h3>${title}</h3>
+      `;
+      card.onclick = () => {
+        window.open(url, '_blank');
+      };
+      gallery.appendChild(card);
+
+      uploadModal.style.display = 'none';
+      gameTitle.value = gameURL.value = gameImgURL.value = '';
+      gameImgFile.value = '';
+    };
+
+    window.onclick = (e) => {
+      if (e.target === uploadModal) uploadModal.style.display = 'none';
+    };
+  </script>
+</body>
+</html>
