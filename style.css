@@ -160,3 +160,56 @@ nav a:hover {
     bottom: 35px;
   }
 }
+
+
+/* Botón de contacto */
+#contactBtn {
+  background: #25D366;
+  color: #ffffff;
+  padding: 8px 15px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#contactBtn:hover {
+  background: #1ebe5b;
+  color: #000;
+}
+
+/* Animación del robot */
+#robot-icon {
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  width: 120px;
+  z-index: 999;
+  animation: moveRobot 10s linear infinite, jump 0.8s ease-in-out infinite;
+}
+
+@keyframes moveRobot {
+  0% {
+    left: 0;
+    transform: scaleX(1);
+  }
+  50% {
+    left: calc(100% - 140px);
+    transform: scaleX(1);
+  }
+  50.0001% {
+    transform: scaleX(-1);
+  }
+  100% {
+    left: 0;
+    transform: scaleX(-1);
+  }
+}
+
+@keyframes jump {
+  0%, 100% {
+    bottom: 20px;
+  }
+  50% {
+    bottom: 35px;
+  }
+}
